@@ -78,7 +78,7 @@ code {
 	margin: 0 0 70px;
 	position: relative;
 	text-align: center;
-	top: 60px;
+	top: 100px;
 }
 .about h2 {
   font-size: 30px;
@@ -88,7 +88,7 @@ code {
 	margin: 0 0 70px;
 	position: relative;
 	text-align: center;
-	top: 60px;
+	top: 100px;
 }
 /* .signup-form h2:before, .signup-form h2:after {
 	content: "";
@@ -123,12 +123,12 @@ code {
 	justify-content: center;
 	align-items: center;
 	margin-bottom: 0;
-	height: 410px;
+	height: 500;
 } 
 .about .form-group {
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 	margin-bottom: 0;
-	height: 321px;
+	height: 400px;
 } 
