@@ -65,10 +65,16 @@ export default function About(){
                                 if(response.data==='success'){
                                     console.log('response.data :', response.data);
                                     setASuccess(true);
+                                    setOtp('');
+                                    setPhone('');
                                 } else {
+                                    setOtp('');
+                                    setPhone('');
                                     alert(`err ${response}`);
                                 }
                             }).catch((err)=>{
+                                    setOtp('');
+                                    setPhone('');
                                 alert(err,'error occurred')
                             });
                         }} variant="success">Join the Firstlist</Button>
