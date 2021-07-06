@@ -24,10 +24,15 @@ export default function Home(){
                 await axios.post(`https://749vraxin6.execute-api.ap-south-1.amazonaws.com/addtofirstlist?phone=${phone}`).then((response)=>{
                    // const a = response.data;
                     console.log('response is',response);
-                    if(JSON.stringify(response.data)===JSON.stringify(phone)){
+                    console.log('phone is: ', phone, phone.length);
+                    if(response.data===JSON.stringify(phone)){
                        console.log('status', response.status);
                         setModal(true);
-                    } else {
+                    } else if(response.status===200) {
+                        //
+                        console.log('yes created');
+                    }
+                    else {
                         alert(response);
                     }
                 }).catch((err)=>{
