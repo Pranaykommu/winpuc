@@ -24,11 +24,11 @@ export default function Home(){
                 await axios.post(`https://749vraxin6.execute-api.ap-south-1.amazonaws.com/addtofirstlist?phone=${phone}`).then((response)=>{
                    // const a = response.data;
                     console.log('response is',response);
-                    if(response.statusText==='OK'){
-                       console.log('statusText', response.statusText);
+                    if(JSON.stringify(response.data)===JSON.stringify(phone)){
+                       console.log('status', response.status);
                         setModal(true);
                     } else {
-                        alert(`err is ${response}`);
+                        alert(response);
                     }
                 }).catch((err)=>{
                     alert(err,'error occurred')
