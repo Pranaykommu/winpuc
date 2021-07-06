@@ -22,9 +22,12 @@ export default function About(){
             <Button onClick={async()=>{
                 //
                 await axios.post(`https://749vraxin6.execute-api.ap-south-1.amazonaws.com/addtofirstlist`,{ phone: phone }, 
-                                 { headers: 'Access-Control-Allow-Origin', 
+                                 { headers: 
+                                  {'Access-Control-Allow-Origin', 
                                  'Content-Type', 'application/json',
-                                 'Accept', 'application/json'}).then((response)=>{
+                                 'Accept', 'application/json'}
+                                 }
+                                ).then((response)=>{
                    // const a = response.data;
                     //
                   //  console.log('phone',phone, 'abc', a, 'resp', response);
