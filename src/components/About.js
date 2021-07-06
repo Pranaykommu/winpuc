@@ -21,7 +21,10 @@ export default function About(){
         (<div style={{ margin: '0 auto', marginTop: '5px', width: '300px', textAlign: 'center' }}>
             <Button onClick={async()=>{
                 //
-                await axios.post(`https://749vraxin6.execute-api.ap-south-1.amazonaws.com/addtofirstlist`,{ phone: phone }).then((response)=>{
+                await axios.post(`https://749vraxin6.execute-api.ap-south-1.amazonaws.com/addtofirstlist`,{ phone: phone }, 
+                                 { headers: 'Access-Control-Allow-Origin', 
+                                 'Content-Type', 'application/json',
+                                 'Accept', 'application/json'}).then((response)=>{
                    // const a = response.data;
                     //
                   //  console.log('phone',phone, 'abc', a, 'resp', response);
