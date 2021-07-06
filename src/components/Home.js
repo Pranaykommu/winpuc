@@ -65,7 +65,11 @@ export default function Home(){
                                 if(response.data==='success'){
                                     console.log('response.data :', response.data);
                                     setSuccess(true);
+                                    setOtp('');
+                                    setPhone('');
                                 } else {
+                                    setOtp('');
+                                    setPhone('');
                                     alert(`err ${response}`);
                                 }
                             }).catch((err)=>{
