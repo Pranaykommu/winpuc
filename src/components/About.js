@@ -25,7 +25,9 @@ export default function About(){
                                  { phone : phone },
                                  { 
                                     headers: {
-                                        'Content-Type': 'application/json'
+                                        'Content-Type': 'application/json',
+                                        'Accept': 'application/json',
+                                        'Origin':'https://www.juiy.in'
                                     }
                                  }
                                 ).then((response)=>{
