@@ -23,10 +23,12 @@ export default function Home(){
                 //
                 await axios.post(`https://749vraxin6.execute-api.ap-south-1.amazonaws.com/addtofirstlist?phone=${phone}`).then((response)=>{
                    // const a = response.data;
-                    if(response.data===phone){
+                    console.log('response is',response);
+                    if(response.statusText==='OK'){
+                       console.log('statusText', response.statusText);
                         setModal(true);
                     } else {
-                        alert('error occurred', response);
+                        alert(`err is ${response}`);
                     }
                 }).catch((err)=>{
                     alert(err,'error occurred')
@@ -57,11 +59,12 @@ export default function Home(){
                             //setModal(true)
                             await axios.post(`https://749vraxin6.execute-api.ap-south-1.amazonaws.com/verify?phone=${phone}&otp=${otp}`).then((response)=>{
                               //  const a = response.data;
-                                //console.log('a: ', a, 'resp', response);
+                                console.log('resp', response);
                                 if(response.data==='success'){
+                                    console.log('response.data :', response.data);
                                     setSuccess(true);
                                 } else {
-                                    alert('error occurred');
+                                    alert(`err ${response}`);
                                 }
                             }).catch((err)=>{
                                 alert(err,'error occurred')
