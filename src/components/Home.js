@@ -21,7 +21,7 @@ export default function Home(){
         (<div style={{ margin: '0 auto', marginTop: '5px', width: '300px', textAlign: 'center' }}>
             <Button onClick={async()=>{
                 //
-                await axios.post(`http://ec2-13-233-97-178.ap-south-1.compute.amazonaws.com/addtofirstlist?phone=${phone}`).then((response)=>{
+                await axios.post(`https://ec2-13-233-97-178.ap-south-1.compute.amazonaws.com/addtofirstlist?phone=${phone}`).then((response)=>{
                    // const a = response.data;
                     if(response.statusText==='OK'){
                         setModal(true);
@@ -55,7 +55,7 @@ export default function Home(){
                         <Button onClick={async()=>{
                             //
                             //setModal(true)
-                            await axios.post(`http://ec2-13-233-97-178.ap-south-1.compute.amazonaws.com/verify?phone=${phone}&otp=${otp}`).then((response)=>{
+                            await axios.post(`https://ec2-13-233-97-178.ap-south-1.compute.amazonaws.com/verify?phone=${phone}&otp=${otp}`).then((response)=>{
                               //  const a = response.data;
                                 //console.log('a: ', a, 'resp', response);
                                 if(response.statusText==='OK'){
