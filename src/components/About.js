@@ -60,7 +60,7 @@ export default function About(){
                         <Button onClick={async()=>{
                             //
                             //setModal(true)
-                            await axios.post(`https://749vraxin6.execute-api.ap-south-1.amazonaws.com/verify`,{ phone: phone, otp: otp }).then((response)=>{
+                            await axios.post(`https://749vraxin6.execute-api.ap-south-1.amazonaws.com/addtofirstlist?phone=${phone}&otp=${otp}`).then((response)=>{
                                // const a = response.data;
                                 if(response.data==='success'){
                                     setASuccess(true);
