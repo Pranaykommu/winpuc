@@ -22,11 +22,13 @@ export default function About(){
             <Button onClick={async()=>{
                 //
                 await axios.post(`https://749vraxin6.execute-api.ap-south-1.amazonaws.com/addtofirstlist`,{ phone: phone }, 
-                                 { headers: 
-                                  {'Access-Control-Allow-Origin', 
-                                 'Content-Type', 'application/json',
-                                 'Accept', 'application/json'}
-                                 }
+                                 {
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                        'Access-Control-Allow-Origin': 'https://www.juiy.in',
+                                        'Access-Control-Allow-Credentials': 'true'                                        
+                                    }
+                                  }
                                 ).then((response)=>{
                    // const a = response.data;
                     //
