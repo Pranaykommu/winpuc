@@ -21,7 +21,7 @@ export default function Home(){
         (<div style={{ margin: '0 auto', marginTop: '5px', width: '300px', textAlign: 'center' }}>
             <Button onClick={async()=>{
                 //
-                await axios(`https://new2-1625841237.ap-south-1.elb.amazonaws.com/addtofirstlist?phone=${phone}`).then((response)=>{
+                await axios.post(`https://new2-1625841237.ap-south-1.elb.amazonaws.com/addtofirstlist?phone=${phone}`).then((response)=>{
                    // const a = response.data;
                     if(response.statusText==='OK'){
                         setModal(true);
