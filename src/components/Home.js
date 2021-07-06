@@ -23,17 +23,17 @@ export default function Home(){
                 //
                 await axios.post(`https://749vraxin6.execute-api.ap-south-1.amazonaws.com/addtofirstlist?phone=${phone}`).then((response)=>{
                    // const a = response.data;
-                    console.log('response is',response);
-                    console.log('phone is: ', phone, phone.length);
+                  //  console.log('response is',response);
+                  //  console.log('phone is: ', phone, phone.length);
                     if(JSON.stringify(response.data)===phone){
-                       console.log('status', response.status);
+                    //   console.log('status', response.status);
                         setModal(true);
                     }
                     else {
-                        alert(response);
+                        alert('err occurred');
                     }
                 }).catch((err)=>{
-                    alert(err,'error occurred')
+                    alert('error occurred')
                 });
             }} variant="success">Join the Firstlist</Button>
         </div>) : null}
@@ -61,19 +61,19 @@ export default function Home(){
                             //setModal(true)
                             await axios.post(`https://749vraxin6.execute-api.ap-south-1.amazonaws.com/verify?phone=${phone}&otp=${otp}`).then((response)=>{
                               //  const a = response.data;
-                                console.log('resp', response);
+                              //  console.log('resp', response);
                                 if(response.data==='success'){
-                                    console.log('response.data :', response.data);
+                                //    console.log('response.data :', response.data);
                                     setSuccess(true);
                                     setOtp('');
                                     setPhone('');
                                 } else {
                                     setOtp('');
                                     setPhone('');
-                                    alert(`err ${response}`);
+                                    alert(`err occurred`);
                                 }
                             }).catch((err)=>{
-                                alert(err,'error occurred')
+                                alert('error occurred')
                             });
                         }} variant="success">Join the Firstlist</Button>
                     </div>) : null}
