@@ -21,17 +21,16 @@ export default function About(){
         (<div style={{ margin: '0 auto', marginTop: '5px', width: '300px', textAlign: 'center' }}>
             <Button onClick={async()=>{
                 //
-                await axios.post(`https://749vraxin6.execute-api.ap-south-1.amazonaws.com/addtofirstlist?phone=${phone}`
-                                ).then((response)=>{
+                await axios.post(`https://749vraxin6.execute-api.ap-south-1.amazonaws.com/addtofirstlist?phone=${phone}`).then((response)=>{
                    // const a = response.data;
-                    //
-                  //  console.log('phone',phone, 'abc', a, 'resp', response);
-                    if(response.statusText==='OK'){
-                       // console.log('verified')
+                    console.log('response is',response);
+                    console.log('phone is: ', phone, phone.length);
+                    if(JSON.stringify(response.data)===phone){
+                       console.log('status', response.status);
                         setSigninmodal(true);
-                    } else {
-                       // console.log('notverified')
-                        alert('error occurred');
+                    }
+                    else {
+                        alert(response);
                     }
                 }).catch((err)=>{
                     alert(err,'error occurred')
@@ -60,15 +59,17 @@ export default function About(){
                         <Button onClick={async()=>{
                             //
                             //setModal(true)
-                            await axios.post(`https://749vraxin6.execute-api.ap-south-1.amazonaws.com/addtofirstlist?phone=${phone}&otp=${otp}`).then((response)=>{
-                               // const a = response.data;
+                            await axios.post(`https://749vraxin6.execute-api.ap-south-1.amazonaws.com/verify?phone=${phone}&otp=${otp}`).then((response)=>{
+                              //  const a = response.data;
+                                console.log('resp', response);
                                 if(response.data==='success'){
+                                    console.log('response.data :', response.data);
                                     setASuccess(true);
                                 } else {
-                                    alert('error occurred');
+                                    alert(`err ${response}`);
                                 }
                             }).catch((err)=>{
-                                alert('error occurred')
+                                alert(err,'error occurred')
                             });
                         }} variant="success">Join the Firstlist</Button>
                     </div>) : null}
