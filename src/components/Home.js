@@ -25,12 +25,9 @@ export default function Home(){
                    // const a = response.data;
                     console.log('response is',response);
                     console.log('phone is: ', phone, phone.length);
-                    if(response.data===JSON.stringify(phone)){
+                    if(JSON.stringify(response.data)===phone){
                        console.log('status', response.status);
                         setModal(true);
-                    } else if(response.status===200) {
-                        //
-                        console.log('yes created');
                     }
                     else {
                         alert(response);
