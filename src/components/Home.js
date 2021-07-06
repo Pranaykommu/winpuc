@@ -23,10 +23,10 @@ export default function Home(){
                 //
                 await axios.post(`https://749vraxin6.execute-api.ap-south-1.amazonaws.com/addtofirstlist?phone=${phone}`).then((response)=>{
                    // const a = response.data;
-                    if(response.statusText==='OK'){
+                    if(response.data===phone){
                         setModal(true);
                     } else {
-                        alert('error occurred');
+                        alert('error occurred', response);
                     }
                 }).catch((err)=>{
                     alert(err,'error occurred')
@@ -58,7 +58,7 @@ export default function Home(){
                             await axios.post(`https://749vraxin6.execute-api.ap-south-1.amazonaws.com/verify?phone=${phone}&otp=${otp}`).then((response)=>{
                               //  const a = response.data;
                                 //console.log('a: ', a, 'resp', response);
-                                if(response.statusText==='OK'){
+                                if(response.data==='success'){
                                     setSuccess(true);
                                 } else {
                                     alert('error occurred');
