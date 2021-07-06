@@ -21,7 +21,7 @@ export default function About(){
         (<div style={{ margin: '0 auto', marginTop: '5px', width: '300px', textAlign: 'center' }}>
             <Button onClick={async()=>{
                 //
-                await axios.post(`https://749vraxin6.execute-api.ap-south-1.amazonaws.com/addtofirstlist?phone=${phone}`).then((response)=>{
+                await axios.post(`https://749vraxin6.execute-api.ap-south-1.amazonaws.com/addtofirstlist`,{ phone: phone }).then((response)=>{
                    // const a = response.data;
                     //
                   //  console.log('phone',phone, 'abc', a, 'resp', response);
@@ -59,7 +59,7 @@ export default function About(){
                         <Button onClick={async()=>{
                             //
                             //setModal(true)
-                            await axios.post(`https://749vraxin6.execute-api.ap-south-1.amazonaws.com/verify?phone=${phone}&otp=${otp}`).then((response)=>{
+                            await axios.post(`https://749vraxin6.execute-api.ap-south-1.amazonaws.com/verify`,{ phone: phone, otp: otp }).then((response)=>{
                                // const a = response.data;
                                 if(response.data==='success'){
                                     setASuccess(true);
