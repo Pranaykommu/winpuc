@@ -27,7 +27,6 @@ export default function About(){
                                     headers: {
                                         'Content-Type': 'application/json',
                                         'Accept': 'application/json',
-                                        'Origin':'https://www.juiy.in'
                                     }
                                  }
                                 ).then((response)=>{
