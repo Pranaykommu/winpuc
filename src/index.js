@@ -5,13 +5,16 @@ import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import NavBar from './components/NavBar';
 import BaseNav from './components/BaseNav';
+import { Provider as AuthProvider } from './context/AuthContext'
 
 
 
 ReactDOM.render(
     <React.Fragment>
-      <NavBar/>
-      <BaseNav/>
+      <AuthProvider>
+        <NavBar />
+        <BaseNav />
+      </AuthProvider>
     </React.Fragment>,
   document.getElementById('root')
 );
