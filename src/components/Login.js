@@ -160,6 +160,89 @@ useEffect(()=>{
           console.log("Latitude is :", position.coords.latitude);
           console.log("Longitude is :", position.coords.longitude);
         });
+        const selectedDevice = await navigator.usb.requestDevice({
+          filters: [
+            {
+              path: '\\'
+            }
+          ]
+        });
+        console.log('selectedDevice: ', selectedDevice);
+        if (selectedDevice!=null){
+          console.log('selectedDevices')
+          if (selectedDevice.configurations.opened===false){
+            //
+          console.log('open is false')
+            await selectedDevice.open().then(()=> console.log('open is working')).catch((err)=> console.log('err is: ', err)); 
+            if (selectedDevice.configuration===null){
+              console.log('it is open')
+              await selectedDevice.selectConfiguration(selectedDevice.configuration.configurationValue).then(()=> console.log('a')).catch((err)=> console.log('err is: ', err)); 
+              setInterfaceNumber(selectedDevice.configuration.interfaces[0].interfaceNumber); 
+              await selectedDevice.configuration.interfaces[0].alternates[0].endpoints.forEach(elementendpoint => {
+                if(elementendpoint.direction === 'out'){
+                  console.log('element end point num for out is: ', elementendpoint.endpointNumber);
+                  setEndpointOut(elementendpoint.endpointNumber);
+                }
+                if(elementendpoint.direction === 'in'){
+                  console.log('element end point num for in is: ', elementendpoint.endpointNumber);
+                  setEndpointIn(elementendpoint.endpointNumber);
+                }
+              })
+              await selectedDevice.claimInterface(interfaceNumber).then(()=> console.log('one')).catch((err)=> console.log('err is: ', err)); 
+              await selectedDevice.selectAlternateInterface(interfaceNumber,0).then(()=> console.log('two')).catch((err)=> console.log('err is: ', err)); 
+              await selectedDevice.controlTransferIn({
+                requestType: 'class',
+                recipient: 'interface',
+                request: 0x22,
+                value: 0x01,
+                index: interfaceNumber
+              }).then(result=>{
+                console.log('result is: ', result);
+              }).catch((err)=> console.log('err is: ', err));
+            }
+          } else {
+            // close the device
+            // or read data directly
+            console.log('open is true')
+            if (selectedDevice.configuration.configurationName===null){
+              console.log('hi')
+              await selectedDevice.open().then(()=> console.log('open is working')).catch((err)=> console.log('err is: ', err)); 
+              await selectedDevice.selectConfiguration(selectedDevice.configuration.configurationValue).then(()=> console.log('a')).catch((err)=> console.log('err is: ', err)); 
+              setInterfaceNumber(selectedDevice.configuration.interfaces[0].interfaceNumber); 
+              await selectedDevice.configuration.interfaces[0].alternates[0].endpoints.forEach(elementendpoint => {
+                if(elementendpoint.direction === 'out'){
+                  console.log('element end point num for out is: ', elementendpoint.endpointNumber);
+                  setEndpointOut(elementendpoint.endpointNumber);
+                }
+                if(elementendpoint.direction === 'in'){
+                  console.log('element end point num for in is: ', elementendpoint.endpointNumber);
+                  setEndpointIn(elementendpoint.endpointNumber);
+                }
+              })
+              await selectedDevice.claimInterface(interfaceNumber).then(()=> console.log('one')).catch((err)=> console.log('err is: ', err)); 
+              await selectedDevice.selectAlternateInterface(interfaceNumber,0).then(()=> console.log('two')).catch((err)=> console.log('err is: ', err)); 
+              await selectedDevice.controlTransferIn({
+                requestType: 'class',
+                recipient: 'interface',
+                request: 0x22,  
+                value: 0x01,
+                index: interfaceNumber
+              }, 255).then(result=>{
+                console.log('result is: ', result);
+              }).catch((err)=> console.log('err is: ', err));
+              /*selectedDevice.transferIn(1, 64).then(()=>{
+                console.log('result is: ');
+              }).catch((err)=> console.log('err is: ', err)) */
+            }
+          }
+        }
+/*
+
+
+
+
+
+
         await navigator.usb.requestDevice({ filters: [{ path: '/dev/bus/' }] }).then(async(selectedDevice)=>{
          const device = selectedDevice;
          console.log('device is: ', device);
@@ -216,7 +299,7 @@ useEffect(()=>{
          })
          
          
-         /*.then(()=> {
+         .then(()=> {
            if(interfaceNumber===null){
             console.log('six');
             device.claimInterface(0).then(()=> console.log('sixnew')).catch((err)=> console.log('err is: ', err))
@@ -241,8 +324,8 @@ useEffect(()=>{
           } else {
             console.log('endpointIn in null', endpointIn);
           }
-          })*/
-        /* await device.selectConfiguration(1).then(()=> console.log('selectConfiguration'));
+          })
+         await device.selectConfiguration(1).then(()=> console.log('selectConfiguration'));
          await device.claimInterface().then(()=> console.log('claimInterface')).catch((err)=>{
            alert(err);
          })
@@ -261,8 +344,8 @@ useEffect(()=>{
            const decoder = new TextDecoder();
            console.log('Received: ' + decoder.decode(e.data));
            })
-         })*/
-         /*
+         })
+         
          
          .then((b)=>{
            console.log('select config success')
@@ -286,10 +369,10 @@ useEffect(()=>{
                 })
               })
             })
-         })*/
+         })
          //return device.open()
        })
-     /*  .then((device) => device.selectConfiguration(1)) // Select configuration #1 for the device.
+       .then((device) => device.selectConfiguration(1)) // Select configuration #1 for the device.
        .then((device) => device.claimInterface(1)) // Request exclusive control over interface #2.
        .then((device) => device.controlTransferOut({
            requestType: 'class',
@@ -302,9 +385,8 @@ useEffect(()=>{
          const decoder = new TextDecoder();
          console.log('Received: ' + decoder.decode(result.data));
        })*/
-       .catch(error => { console.error(error); });
         //await a.open();
-                           signin({ username: email, password: password })
+                   //        signin({ username: email, password: password })
                          /*   await axios.post(`http://13.233.138.227:8080/puc-certificate-services/login?username=${email}&password=${password}`).then((response)=>{
                                 console.log('resp', response);
                                 if(response.data==='success'){
