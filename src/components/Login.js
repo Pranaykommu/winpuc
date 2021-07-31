@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import { Context as AuthContext } from '../context/AuthContext';
 import { FormControl, IconButton, InputAdornment, InputLabel, makeStyles, OutlinedInput, TextField, withStyles, Button, FilledInput } from '@material-ui/core';
@@ -51,6 +51,22 @@ useEffect(()=>{
 },[])
 
 */
+const readLoop = useCallback(async(selectedDevice)=>{
+  //
+  await selectedDevice.controlTransferIn({
+    requestType: 'class',
+    recipient: 'interface',
+    request: 0x22,  
+    value: 0x01,
+    index: interfaceNumber
+  },255).then(() => selectedDevice.transferIn(5, 64)) // Waiting for 64 bytes of data from endpoint #5.
+  .then(result => {
+    const decoder = new TextDecoder();
+    console.log('Received: ' + decoder.decode(result.data));
+  })
+},[])
+
+
 
 
     const [interfaceNumber, setInterfaceNumber] = useState(null);
@@ -189,16 +205,21 @@ useEffect(()=>{
                 }
               })
               await selectedDevice.claimInterface(interfaceNumber).then(()=> console.log('one')).catch((err)=> console.log('err is: ', err)); 
-              await selectedDevice.selectAlternateInterface(interfaceNumber,0).then(()=> console.log('two')).catch((err)=> console.log('err is: ', err)); 
+              await selectedDevice.selectAlternateInterface(interfaceNumber,0).then(()=> console.log('heytwo')).catch((err)=> console.log('err is: ', err));  
               await selectedDevice.controlTransferIn({
                 requestType: 'class',
                 recipient: 'interface',
-                request: 0x22,
-                value: 0x01,
+               // request: 1,  
+               // value: 0,
                 index: interfaceNumber
-              }).then(result=>{
-                console.log('result is: ', result);
-              }).catch((err)=> console.log('err is: ', err));
+              },255).then(() => {
+                console.log('oldddd')
+                selectedDevice.transferIn(interfaceNumber, 64)
+              }) // Waiting for 64 bytes of data from endpoint #5.
+              .then(result => {
+                const decoder = new TextDecoder();
+                console.log('Received: ' + decoder.decode(result.data));
+              })
             }
           } else {
             // close the device
@@ -224,18 +245,29 @@ useEffect(()=>{
               await selectedDevice.controlTransferIn({
                 requestType: 'class',
                 recipient: 'interface',
-                request: 0x22,  
-                value: 0x01,
+                request: 1,  
+                value: 0,
                 index: interfaceNumber
-              }, 255).then(result=>{
-                console.log('result is: ', result);
-              }).catch((err)=> console.log('err is: ', err));
+              },255).then(async() => {
+                console.log('newwwww')
+                await selectedDevice.transferIn(interfaceNumber, 64)
+              }) // Waiting for 64 bytes of data from endpoint #5.
+              .then(result => {
+                const decoder = new TextDecoder();
+                console.log('Received: ' + decoder.decode(result.data));
+              })
               /*selectedDevice.transferIn(1, 64).then(()=>{
                 console.log('result is: ');
               }).catch((err)=> console.log('err is: ', err)) */
             }
           }
         }
+
+
+
+
+
+
 /*
 
 
@@ -386,7 +418,7 @@ useEffect(()=>{
          console.log('Received: ' + decoder.decode(result.data));
        })*/
         //await a.open();
-                   //        signin({ username: email, password: password })
+                           signin({ username: email, password: password })
                          /*   await axios.post(`http://13.233.138.227:8080/puc-certificate-services/login?username=${email}&password=${password}`).then((response)=>{
                                 console.log('resp', response);
                                 if(response.data==='success'){
