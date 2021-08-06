@@ -242,7 +242,7 @@ const readLoop = useCallback(async(selectedDevice)=>{
                 }
               })
               await selectedDevice.claimInterface(interfaceNumber).then(()=> console.log('one')).catch((err)=> console.log('err is: ', err)); 
-              await selectedDevice.selectAlternateInterface(interfaceNumber,0).then(()=> console.log('two')).catch((err)=> console.log('err is: ', err)); 
+              await selectedDevice.selectAlternateInterface(interfaceNumber,0).then(()=> console.log('mtwo')).catch((err)=> console.log('serr is: ', err)); 
               await selectedDevice.controlTransferIn({
                 requestType: 'class',
                 recipient: 'interface',
