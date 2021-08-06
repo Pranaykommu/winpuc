@@ -209,8 +209,8 @@ const readLoop = useCallback(async(selectedDevice)=>{
               await selectedDevice.controlTransferIn({
                 requestType: 'class',
                 recipient: 'interface',
-               // request: 1,  
-               // value: 0,
+                request: 6,  
+                value: 0,
                 index: interfaceNumber
               },255).then(() => {
                 console.log('oldddd')
@@ -245,7 +245,7 @@ const readLoop = useCallback(async(selectedDevice)=>{
               await selectedDevice.controlTransferIn({
                 requestType: 'class',
                 recipient: 'interface',
-                request: 1,  
+                request: 6,  
                 value: 0,
                 index: interfaceNumber
               },255).then(async() => {
