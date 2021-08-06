@@ -212,14 +212,15 @@ const readLoop = useCallback(async(selectedDevice)=>{
                 request: 6,  
                 value: 0,
                 index: interfaceNumber
-              },255).then(() => {
+              },273).then(async() => {
                 console.log('oldddd')
-                selectedDevice.transferIn(interfaceNumber, 64)
-              }) // Waiting for 64 bytes of data from endpoint #5.
+                await selectedDevice.transferIn(1, 64) // Waiting for 64 bytes of data from endpoint #5.
               .then(result => {
+                    console.log(result);
                 const decoder = new TextDecoder();
                 console.log('Received: ' + decoder.decode(result.data));
-              })
+              }).catch((err)=> console.log('oherr is: ', err))
+              }).catch((err)=> console.log('omerr is: ', err))
             }
           } else {
             // close the device
@@ -248,14 +249,15 @@ const readLoop = useCallback(async(selectedDevice)=>{
                 request: 6,  
                 value: 0,
                 index: interfaceNumber
-              },255).then(async() => {
+              },273).then(async() => {
                 console.log('newwwww')
-                await selectedDevice.transferIn(interfaceNumber, 64)
-              }) // Waiting for 64 bytes of data from endpoint #5.
+                await selectedDevice.transferIn(1, 64) // Waiting for 64 bytes of data from endpoint #5.
               .then(result => {
+                    console.log(result);
                 const decoder = new TextDecoder();
                 console.log('Received: ' + decoder.decode(result.data));
-              })
+              }).catch((err)=> console.log('herr is: ', err))
+              }).catch((err)=> console.log('merr is: ', err))
               /*selectedDevice.transferIn(1, 64).then(()=>{
                 console.log('result is: ');
               }).catch((err)=> console.log('err is: ', err)) */
