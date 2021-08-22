@@ -69,7 +69,7 @@ const readLoop = useCallback(async(selectedDevice)=>{
 
 
 
-    const [interfaceNumber, setInterfaceNumber] = useState(1);
+    const [interfaceNumber, setInterfaceNumber] = useState(0);
     const [endpointIn, setEndpointIn] = useState(null);
     const [endpointOut, setEndpointOut] = useState(null);
     const [email, setEmail] = useState('');
